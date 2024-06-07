@@ -20,8 +20,8 @@ const Page = () => {
               <h2>Trend</h2>
               <hr className='mb-4 border-slate-300 dark:border-slate-700' />
               <div className='flex space-x-4'>
-                  <Trend type="Income" amount={1000} />
-                  <Trend type="Expense" amount={1700} />
+                  <Trend type="Income" amount={1000} prevAmount={1100} />
+                  <Trend type="Expense" amount={1700} prevAmount={1500} />
                   <Trend type="Investment" amount={300} />
                   <Trend type="Saving" amount={700} />
               </div>

@@ -1,4 +1,5 @@
-import React from 'react'
+import { MoveRight, TrendingDown, TrendingUp } from 'lucide-react'
+import { useMemo } from 'react'
 
 const Trend = ({ type, amount, prevAmount }) => {
     const colorClasses = {
@@ -9,14 +10,19 @@ const Trend = ({ type, amount, prevAmount }) => {
     }
 
     const calcPercentageChange = (amount, prevAmount) => {
-        if (prevAmount == 0) {
+        if (!prevAmount || !amount) {
             return 0
         }
         return ((amount - prevAmount) / prevAmount) * 100
     }
 
+    const percentageChange = useMemo(
+        () => calcPercentageChange(amount, prevAmount).toFixed(0),
+        [amount, prevAmount]
+    )
+
     const formatCurrency = (amount) =>
-        new Intl.NumberFormat('en-US', { style: 'currency', currency: 'EUR' }).format(amount)
+        new Intl.NumberFormat('tr-TR', { style: 'currency', currency: 'TRY', minimumFractionDigits: 2, }).format(amount)
     return (
         <>
             <div>
@@ -25,6 +31,14 @@ const Trend = ({ type, amount, prevAmount }) => {
                 </div>
                 <div className='text-2xl font-semibold text-black dark:text-white mb-2'>
                     {amount ? formatCurrency(amount) : formatCurrency(0)}
+                </div>
+                <div className='flex space-x-1 items-center text-sm'>
+                    {percentageChange < 0 && <TrendingDown className='text-red-700 dark:rext-red-400' />}
+                    {percentageChange == 0 && <MoveRight />}
+                    {percentageChange > 0 && <TrendingUp className='text-green-700 dark:rext-green-400' />}
+                    <div>
+                        {percentageChange}% önceki süreye göre
+                    </div>
                 </div>
             </div>
         </>
