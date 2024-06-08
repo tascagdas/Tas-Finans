@@ -1,3 +1,4 @@
+import { useFormatCurrency } from '@/hooks/use-format-currency'
 import { MoveRight, TrendingDown, TrendingUp } from 'lucide-react'
 import { useMemo } from 'react'
 
@@ -21,8 +22,8 @@ const Trend = ({ type, amount, prevAmount }) => {
         [amount, prevAmount]
     )
 
-    const formatCurrency = (amount) =>
-        new Intl.NumberFormat('tr-TR', { style: 'currency', currency: 'TRY', minimumFractionDigits: 2, }).format(amount)
+    const formattedAmount = useFormatCurrency(amount)
+
     return (
         <>
             <div>
@@ -30,7 +31,7 @@ const Trend = ({ type, amount, prevAmount }) => {
                     {type}
                 </div>
                 <div className='text-2xl font-semibold text-black dark:text-white mb-2'>
-                    {amount ? formatCurrency(amount) : formatCurrency(0)}
+                    {formattedAmount}
                 </div>
                 <div className='flex space-x-1 items-center text-sm'>
                     {percentageChange < 0 && <TrendingDown className='text-red-700 dark:rext-red-400' />}
