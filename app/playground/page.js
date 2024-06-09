@@ -1,5 +1,8 @@
 import Button from '@/components/button'
+import Input from '@/components/input'
+import Label from '@/components/label'
 import PageHeader from '@/components/page-header'
+import Select from '@/components/select'
 import TransactionItem from '@/components/transaction-item'
 import TransactionSummaryItem from '@/components/transaction-summary-item'
 import Trend from '@/components/trend'
@@ -12,14 +15,14 @@ const Page = () => {
                 Playground
             </h1>
 
-            <div>
+            <div className='border border-gray-500 '>
                 <h2 className='mb-4 text-lg font-mono'>PageHeader</h2>
                 <hr className='mb-4 border-slate-300 dark:border-slate-700' />
                 <div>
                     <PageHeader />
                 </div>
             </div>
-            <div>
+            <div className='border border-gray-500 '>
                 <h2 className='mb-4 text-lg font-mono'>Trend</h2>
                 <hr className='mb-4 border-slate-300 dark:border-slate-700' />
                 <div className='flex space-x-4'>
@@ -29,7 +32,7 @@ const Page = () => {
                     <Trend type="Saving" amount={700} />
                 </div>
             </div>
-            <div>
+            <div className='border border-gray-500 '>
                 <h2 className='mb-4 text-lg font-mono'>Transferler</h2>
                 <hr className='mb-4 border-slate-300 dark:border-slate-700' />
                 <div className='space-y-4 '>
@@ -39,7 +42,7 @@ const Page = () => {
                     <TransactionItem type="Investment" description="Borsa" amount={9000} />
                 </div>
             </div>
-            <div>
+            <div className='border border-gray-500 '>
                 <h2 className='mb-4 text-lg font-mono'>Transfer toplam</h2>
                 <hr className='mb-4 border-slate-300 dark:border-slate-700' />
                 <div className='space-y-4 '>
@@ -51,7 +54,7 @@ const Page = () => {
                     <TransactionItem type="Investment" description="Borsa" amount={9000} />
                 </div>
             </div>
-            <div>
+            <div className='border border-gray-500 '>
                 <h2 className='mb-4 text-lg font-mono'>Butonlar</h2>
                 <hr className='mb-4 border-slate-300 dark:border-slate-700' />
                 <div className='space-x-4 '>
@@ -64,28 +67,27 @@ const Page = () => {
                     <Button size="lg">Hello</Button>
                 </div>
             </div>
-            <div>
+            <div className='border border-gray-500 '>
                 <h2 className='mb-4 text-lg font-mono'>Formlar</h2>
                 <hr className='mb-4 border-slate-300 dark:border-slate-700' />
                 <div className='grid grid-cols-2 gap-4 '>
                     <div>
-                        <label className='text-gray-700 dark:text-gray-300 block mb-1' >Adınız</label>
-                        <input type="text" placeholder='Yaz kızım...' className='rounded-md shadow-sm border-gray-300 bg-white dark:bg-gray-950 dark:border-gray-700 focus:border-green-400' />
+                        <Label className="mb-1">Adınız</Label>
+                        <Input type='text' placeholder='Adınızı giriniz babo' />
                     </div>
                     <div>
-                        <label className='text-gray-700 dark:text-gray-300 block mb-1' >Şehir</label>
-                        <select className='rounded-md shadow-sm border-gray-300 bg-white dark:bg-gray-950 dark:border-gray-700 focus:border-green-400' >
+                        <Label className="mb-1">Şehir</Label>
+                        <Select>
                             <option value="">İstanbul</option>
                             <option value="">Hakkari</option>
                             <option value="">Kars</option>
                             <option value="">Ankara</option>
                             <option value="">Eskişehir</option>
-                        </select>
+                        </Select>
                     </div>
                     <div className='flex items-center'>
-
-                        <input type="checkbox" className='rounded border-gray-300 text-gray-700 bg-white dark:bg-gray-900 dark:text-gray-500 shadow-sm' />
-                        <label className='text-gray-700 dark:text-gray-300 ml-2' >Şehir</label>
+                        <Input type='checkbox' id='terms' />
+                        <Label className="ml-2" htmlFor='terms'>Babamı Yalayabilirisiniz.</Label>
                     </div>
                 </div>
             </div>
