@@ -3,6 +3,8 @@ import Input from '@/components/input'
 import Label from '@/components/label'
 import PageHeader from '@/components/page-header'
 import Select from '@/components/select'
+import Seperator from '@/components/seperator'
+import Skeleton from '@/components/skeleton'
 import TransactionItem from '@/components/transaction-item'
 import TransactionSummaryItem from '@/components/transaction-summary-item'
 import Trend from '@/components/trend'
@@ -17,14 +19,14 @@ const Page = () => {
 
             <div className='border border-gray-500 '>
                 <h2 className='mb-4 text-lg font-mono'>PageHeader</h2>
-                <hr className='mb-4 border-slate-300 dark:border-slate-700' />
+                <Seperator />
                 <div>
                     <PageHeader />
                 </div>
             </div>
             <div className='border border-gray-500 '>
                 <h2 className='mb-4 text-lg font-mono'>Trend</h2>
-                <hr className='mb-4 border-slate-300 dark:border-slate-700' />
+                <Seperator />
                 <div className='flex space-x-4'>
                     <Trend type="Income" amount={1000} prevAmount={1100} />
                     <Trend type="Expense" amount={1700} prevAmount={1500} />
@@ -34,7 +36,7 @@ const Page = () => {
             </div>
             <div className='border border-gray-500 '>
                 <h2 className='mb-4 text-lg font-mono'>Transferler</h2>
-                <hr className='mb-4 border-slate-300 dark:border-slate-700' />
+                <Seperator />
                 <div className='space-y-4 '>
                     <TransactionItem type="Income" description="Maaş" amount={17000} />
                     <TransactionItem type="Expense" category="Gıda" description="Dışarıda yemek" amount={7000} />
@@ -44,10 +46,10 @@ const Page = () => {
             </div>
             <div className='border border-gray-500 '>
                 <h2 className='mb-4 text-lg font-mono'>Transfer toplam</h2>
-                <hr className='mb-4 border-slate-300 dark:border-slate-700' />
+                <Seperator />
                 <div className='space-y-4 '>
                     <TransactionSummaryItem date="27/7/2024" amount={3500} />
-                    <hr className='mb-4 border-slate-300 dark:border-slate-700' />
+                    <Seperator />
                     <TransactionItem type="Income" description="Maaş" amount={17000} />
                     <TransactionItem type="Expense" category="Gıda" description="Dışarıda yemek" amount={7000} />
                     <TransactionItem type="Saving" category="Kişisel" description="Bilgisayar için" amount={1000} />
@@ -56,7 +58,7 @@ const Page = () => {
             </div>
             <div className='border border-gray-500 '>
                 <h2 className='mb-4 text-lg font-mono'>Butonlar</h2>
-                <hr className='mb-4 border-slate-300 dark:border-slate-700' />
+                <Seperator />
                 <div className='space-x-4 '>
                     <Button>Hello</Button>
                     <Button variant="outline">Hello</Button>
@@ -69,7 +71,7 @@ const Page = () => {
             </div>
             <div className='border border-gray-500 '>
                 <h2 className='mb-4 text-lg font-mono'>Formlar</h2>
-                <hr className='mb-4 border-slate-300 dark:border-slate-700' />
+                <Seperator />
                 <div className='grid grid-cols-2 gap-4 '>
                     <div>
                         <Label className="mb-1">Adınız</Label>
@@ -88,6 +90,22 @@ const Page = () => {
                     <div className='flex items-center'>
                         <Input type='checkbox' id='terms' />
                         <Label className="ml-2" htmlFor='terms'>Babamı Yalayabilirisiniz.</Label>
+                    </div>
+                </div>
+            </div>
+            <div className='border border-gray-500 '>
+                <h2 className='mb-4 text-lg font-mono'>Loading Skeleton</h2>
+                <Seperator />
+                <div className='space-y-8'>
+                    <div className='flex space-x-4'>
+                        <Skeleton />
+                        <Skeleton />
+                        <Skeleton />
+                    </div>
+                    <div className='space-y-4'>
+                        <Skeleton />
+                        <Skeleton />
+                        <Skeleton />
                     </div>
                 </div>
             </div>
