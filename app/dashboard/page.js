@@ -1,7 +1,10 @@
+import TransactionList from "./components/transaction-list"
+
 const Page = () => {
   return (
       <>
-          Hello from dashboard
+
+      <TransactionList/>
       </>
   )
 }
