@@ -2,7 +2,7 @@ import { useFormatCurrency } from '@/hooks/use-format-currency'
 import { MoveRight, TrendingDown, TrendingUp } from 'lucide-react'
 import { useMemo } from 'react'
 
-const Trend = ({ type, amount, prevAmount }) => {
+const Trend = ({ type, amount, prevAmount, displayName }) => {
     const colorClasses = {
         'Income': 'text-green-700 dark:text-green-300',
         'Expense': 'text-red-700 dark:text-red-300',
@@ -28,7 +28,7 @@ const Trend = ({ type, amount, prevAmount }) => {
         <>
             <div>
                 <div className={`font-semibold ${colorClasses[type]}`}>
-                    {type}
+                    {displayName}
                 </div>
                 <div className='text-2xl font-semibold text-black dark:text-white mb-2'>
                     {formattedAmount}
@@ -38,7 +38,7 @@ const Trend = ({ type, amount, prevAmount }) => {
                     {percentageChange == 0 && <MoveRight />}
                     {percentageChange > 0 && <TrendingUp className='text-green-700 dark:rext-green-400' />}
                     <div>
-                        {percentageChange}% önceki süreye göre
+                        {percentageChange}%  {percentageChange == 0 && "değişim yok"}{percentageChange < 0 && "azalma"}{percentageChange > 0 && "artış"}
                     </div>
                 </div>
             </div>

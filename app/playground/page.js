@@ -33,10 +33,10 @@ const Page = () => {
                 <h2 className='mb-4 text-lg font-mono'>Trend</h2>
                 <Seperator />
                 <div className='flex space-x-4'>
-                    <Trend type="Income" amount={1000} prevAmount={1100} />
-                    <Trend type="Expense" amount={1700} prevAmount={1500} />
-                    <Trend type="Investment" amount={300} />
-                    <Trend type="Saving" amount={700} />
+                    <Trend type="Income" amount={1000} prevAmount={1100} displayName="Gelir" />
+                    <Trend type="Expense" amount={1700} prevAmount={1500} displayName="Gider" />
+                    <Trend type="Investment" amount={300} displayName="Yatırım" />
+                    <Trend type="Saving" amount={700} displayName="Birikim" />
                 </div>
             </div>
             <div className='border border-gray-500 '>
