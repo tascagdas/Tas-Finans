@@ -5,7 +5,10 @@ import useServerDarkMode from "@/hooks/use-server-dark-mode";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata = {
-  title: "Tas Finans",
+  title: {
+    template: "%s | Taş Finans",
+    default: "Taş Finans"
+  },
   description: "Gelir ve Giderleri takip etmek için hazırlanmış bir finans uygulaması",
 };
 

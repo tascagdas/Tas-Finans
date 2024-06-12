@@ -11,7 +11,7 @@ const Page = () => {
   return (
     <>
       <section className="mb-8">
-        <h1 className="text-4xl font-semibold">Summary</h1>
+        <h1 className="text-4xl font-semibold">Özet</h1>
       </section>
       <section className="mb-8 grid grid-cols-2 lg:grid-cols-4 gap-8">
         <Suspense fallback={<TrendFallback/>}>
