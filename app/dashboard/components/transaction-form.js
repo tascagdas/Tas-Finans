@@ -23,13 +23,13 @@ const TransactionForm = () => {
               <div>
                   <Label className="mb-1">Tip</Label>
                   <Select {...register("type")}>
-                      {types.map(type => <option key={type}>{ type }</option>)}
+                      {types.map(type => <option key={type.value}>{ type.displayName }</option>)}
                   </Select>
               </div>
               <div>
                   <Label className="mb-1">Kategori</Label>
                   <Select {...register("category")}>
-                      {categories.map(category => <option key={category}>{category}</option>)}
+                      {categories.map(category => <option key={category.value}>{category.displayName}</option>)}
                   </Select>
               </div>
               <div>
