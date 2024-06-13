@@ -10,7 +10,9 @@ import { useForm } from "react-hook-form"
 
 const TransactionForm = () => {
 
-    const { register, handleSubmit, watch, formState: { errors } } = useForm();
+    const { register, handleSubmit, watch, formState: { errors } } = useForm({
+        mode:"onTouched"
+    });
 
     const onSubmit= (data)=> console.log(data)
 
@@ -32,15 +34,29 @@ const TransactionForm = () => {
               </div>
               <div>
                   <Label className="mb-1">İşlem Tarihi</Label>
-                  <Input {...register("transactionDate")} /> 
+                  <Input {...register("transactionDate", {
+                      required: "Tarih girilmelidir."
+                  })} /> 
+                  {errors.transactionDate && <p className="mt-1 text-red-500">{errors.transactionDate.message}</p>}
               </div>
               <div>
                   <Label className="mb-1">İşlem Tutarı</Label>
-                  <Input type="number" {...register("amount")} />
+                  <Input type="number" {...register("amount", {
+                      required: "Miktar girilmelidir.",
+                      valueAsNumber: true,
+                      min: {
+                          value: 1,
+                          message:"Miktar 1den büyük olmalıdır."
+                      }
+                  })} />
+                  {errors.amount && <p className="mt-1 text-red-500">{errors.amount.message }</p>}
               </div>
-              <div className="col-span-2">
+              <div className="col-span-1 md:col-span-2">
                   <Label className="mb-1">İşlem Açıklaması</Label>
-                  <Input type="text" {...register("transactionDescription")} />
+                  <Input type="text" {...register("transactionDescription", {
+                      required: "Açıklama girilmelidir."
+                  })} />
+                  {errors.transactionDescription && <p className="mt-1 text-red-500">{errors.transactionDescription.message}</p>}
               </div>
           </div>
           <div className="flex justify-end">
