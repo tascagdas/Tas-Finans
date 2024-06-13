@@ -29,33 +29,22 @@ const TransactionForm = () => {
               <div>
                   <Label className="mb-1">Kategori</Label>
                   <Select {...register("category")}>
-                      {categories.map(categorie => <option key={categorie}>{categorie}</option>)}
+                      {categories.map(category => <option key={category}>{category}</option>)}
                   </Select>
               </div>
               <div>
                   <Label className="mb-1">İşlem Tarihi</Label>
-                  <Input {...register("transactionDate", {
-                      required: "Tarih girilmelidir."
-                  })} /> 
+                  <Input {...register("transactionDate")} /> 
                   {errors.transactionDate && <p className="mt-1 text-red-500">{errors.transactionDate.message}</p>}
               </div>
               <div>
                   <Label className="mb-1">İşlem Tutarı</Label>
-                  <Input type="number" {...register("amount", {
-                      required: "Miktar girilmelidir.",
-                      valueAsNumber: true,
-                      min: {
-                          value: 1,
-                          message:"Miktar 1den büyük olmalıdır."
-                      }
-                  })} />
+                  <Input type="number" {...register("amount")} />
                   {errors.amount && <p className="mt-1 text-red-500">{errors.amount.message }</p>}
               </div>
               <div className="col-span-1 md:col-span-2">
                   <Label className="mb-1">İşlem Açıklaması</Label>
-                  <Input type="text" {...register("transactionDescription", {
-                      required: "Açıklama girilmelidir."
-                  })} />
+                  <Input type="text" {...register("transactionDescription")} />
                   {errors.transactionDescription && <p className="mt-1 text-red-500">{errors.transactionDescription.message}</p>}
               </div>
           </div>
