@@ -6,7 +6,7 @@ import React from 'react'
 const groupAndSumTransactionsByDate = (transactions) => {
   const grouped = {}
   for (const transaction of transactions) {
-    const date = transaction.created_at.split('T')[0]
+    const date = transaction.transactionDate.split('T')[0]
     if (!grouped[date]) {
       grouped[date] = {
         transactions: [], amount: 0

@@ -8,6 +8,7 @@ import { categories, types } from "@/lib/consts"
 import { transactionSchema } from "@/lib/validation"
 import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
+import { useState } from "react"
 
 
 const TransactionForm = () => {
@@ -17,9 +18,24 @@ const TransactionForm = () => {
         resolver: zodResolver(transactionSchema)
     });
 
-    const onSubmit = (data) => {
-        console.log(data)
-        console.log(process.env.NEXT_PUBLIC_API_URL)
+    const [isSaving, setSaving] = useState(false)
+
+    const onSubmit = async (data) => {
+        setSaving(true)
+        try {
+            await fetch(`${process.env.NEXT_PUBLIC_API_URL}/transactions`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    ...data,
+                    transactionDate: `${data.transactionDate}T00:00:00`
+                })
+            })
+        } finally {
+            setSaving(false)
+        }
     }
 
 
@@ -55,7 +71,7 @@ const TransactionForm = () => {
               </div>
           </div>
           <div className="flex justify-end">
-              <Button type="submit">Kaydet</Button>
+              <Button type="submit" disabled={isSaving}>Kaydet</Button>
           </div>
     </form>
   )
