@@ -17,7 +17,10 @@ const TransactionForm = () => {
         resolver: zodResolver(transactionSchema)
     });
 
-    const onSubmit = (data)=> console.log(data)
+    const onSubmit = (data) => {
+        console.log(data)
+        console.log(process.env.NEXT_PUBLIC_API_URL)
+    }
 
 
   return (
