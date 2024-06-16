@@ -20,7 +20,12 @@ const groupAndSumTransactionsByDate = (transactions) => {
 }
 
 const TransactionList = async () => {
-  const response = await fetch(`${process.env.API_URL}/transactions`
+  const response = await fetch(`${process.env.API_URL}/transactions`,
+    {
+      next: {
+        tags: ['transaction-list']
+      }
+    }
   )
   const transactions = await response.json()
 
