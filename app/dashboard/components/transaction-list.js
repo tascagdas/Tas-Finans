@@ -1,12 +1,13 @@
 import Seperator from '@/components/seperator'
 import TransactionItem from '@/components/transaction-item'
 import TransactionSummaryItem from '@/components/transaction-summary-item'
+import { createClient } from '@/lib/supabase/server'
 import React from 'react'
 
 const groupAndSumTransactionsByDate = (transactions) => {
   const grouped = {}
   for (const transaction of transactions) {
-    const date = transaction.transactionDate.split('T')[0]
+    const date = transaction.created_at.split('T')[0]
     if (!grouped[date]) {
       grouped[date] = {
         transactions: [], amount: 0
@@ -20,15 +21,9 @@ const groupAndSumTransactionsByDate = (transactions) => {
 }
 
 const TransactionList = async () => {
-  const response = await fetch(`${process.env.API_URL}/transactions`,
-    {
-      next: {
-        tags: ['transaction-list']
-      }
-    }
-  )
-  const transactions = await response.json()
-
+  const supabase = createClient();
+  const {data:transactions,error}=await supabase.from('transactions').select('*')
+console.log(transactions)
   const grouped = groupAndSumTransactionsByDate(transactions)
 
   return (
