@@ -7,7 +7,7 @@ import React from 'react'
 const groupAndSumTransactionsByDate = (transactions) => {
   const grouped = {}
   for (const transaction of transactions) {
-    const date = transaction.created_at.split('T')[0]
+    const date = transaction.transaction_date.split('T')[0]
     if (!grouped[date]) {
       grouped[date] = {
         transactions: [], amount: 0
@@ -22,8 +22,10 @@ const groupAndSumTransactionsByDate = (transactions) => {
 
 const TransactionList = async () => {
   const supabase = createClient();
-  const {data:transactions,error}=await supabase.from('transactions').select('*')
-console.log(transactions)
+  const { data: transactions, error } = await supabase
+    .from('transactions')
+    .select('*')
+  .order('transaction_date',{ascending: false})
   const grouped = groupAndSumTransactionsByDate(transactions)
 
   return (
@@ -32,7 +34,7 @@ console.log(transactions)
         Object.entries(grouped).map(([date, { transactions, amount }]) =>
           <div key={date}>
             <TransactionSummaryItem date={date} amount={amount} />
-            <Seperator/>
+            <Seperator />
             <section className='space-y-4'>
               {transactions.map(transaction => <div key={transaction.id}>
                 <TransactionItem {...transaction} />
