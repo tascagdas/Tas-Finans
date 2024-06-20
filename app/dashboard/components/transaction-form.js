@@ -10,7 +10,7 @@ import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useState } from "react"
 import { useRouter } from "next/navigation"
-import { purgeTransactionListCache } from "@/lib/actions";
+import { createTransaction, purgeTransactionListCache } from "@/lib/actions";
 import FormError from "@/components/form-error"
 
 const TransactionForm = () => {
@@ -27,17 +27,8 @@ const TransactionForm = () => {
     const onSubmit = async (data) => {
         setSaving(true)
         try {
-            await fetch(`${process.env.NEXT_PUBLIC_API_URL}/transactions`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                    ...data,
-                    transactionDate: `${data.transactionDate}T00:00:00`
-                })
-            })
-            await purgeTransactionListCache()
+            await createTransaction(data)
+            // await purgeTransactionListCache()
             router.push('/dashboard')
         } finally {
             setSaving(false)
@@ -64,7 +55,7 @@ const TransactionForm = () => {
               </div>
               <div>
                   <Label className="mb-1">İşlem Tarihi</Label>
-                  <Input placeholder="GG-AA-YYYY" {...register("transactionDate")} /> 
+                  <Input placeholder="YYYY-AA-GG" {...register("transaction_date")} /> 
                   <FormError error={errors.transactionDate} />
               </div>
               <div>
