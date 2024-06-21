@@ -10,7 +10,7 @@ import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useState } from "react"
 import { useRouter } from "next/navigation"
-import { createTransaction, purgeTransactionListCache } from "@/lib/actions";
+import { createTransaction } from "@/lib/actions";
 import FormError from "@/components/form-error"
 
 const TransactionForm = () => {
@@ -24,13 +24,17 @@ const TransactionForm = () => {
 
     const [isSaving, setSaving] = useState(false)
 
+    const [lastError, setLastError] = useState();
+
     const onSubmit = async (data) => {
         setSaving(true)
+        setLastError()
         try {
             await createTransaction(data)
-            // await purgeTransactionListCache()
             router.push('/dashboard')
-        } finally {
+        } catch(error) {
+            setLastError(error)
+        }finally {
             setSaving(false)
         }
     }
@@ -69,7 +73,10 @@ const TransactionForm = () => {
                   <FormError error={errors.description}/>
               </div>
           </div>
-          <div className="flex justify-end">
+          <div className="flex justify-between items-center">
+              <div>
+                  {lastError && <FormError error={lastError} />}
+              </div>
               <Button type="submit" disabled={isSaving}>Kaydet</Button>
           </div>
     </form>
