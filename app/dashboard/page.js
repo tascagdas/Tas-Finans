@@ -6,7 +6,9 @@ import TrendFallback from "./components/trend-fallback"
 import Link from "next/link"
 import { PlusCircle } from "lucide-react"
 import { sizes, variants } from "@/lib/variants"
-import { createClient } from "@/lib/supabase/server"
+import { ErrorBoundary } from "react-error-boundary"
+import { types } from "@/lib/consts"
+
 
 const Page = async () => {
   return (
@@ -15,18 +17,11 @@ const Page = async () => {
         <h1 className="text-4xl font-semibold">Özet</h1>
       </section>
       <section className="mb-8 grid grid-cols-2 lg:grid-cols-4 gap-8">
-        <Suspense fallback={<TrendFallback/>}>
-          <Trend type="Income" displayName="Gelir"/>
-        </Suspense>
-        <Suspense fallback={<TrendFallback />}>
-          <Trend type="Expense" displayName="Gider" />
-        </Suspense>
-        <Suspense fallback={<TrendFallback />}>
-          <Trend type="Saving" displayName="Birikim" />
-        </Suspense>
-        <Suspense fallback={<TrendFallback />}>
-          <Trend type="Investment" displayName="Yatırım" />
-        </Suspense>
+        {types.map(type => <ErrorBoundary key={type.value} fallback={<div className="text-orange-300">{type.displayName } trend verisi alınamadı</div>}>
+          <Suspense fallback={<TrendFallback />}>
+            <Trend type={type.value} displayName={type.displayName} />
+          </Suspense>
+        </ErrorBoundary> )}
       </section>
 
       <section className="flex justify-between items-center mb-8">
