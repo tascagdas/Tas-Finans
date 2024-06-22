@@ -76,7 +76,7 @@ const TransactionForm = () => {
               <div>
                   <Label className="mb-1">İşlem Tarihi</Label>
                   <Input placeholder="YYYY-AA-GG" {...register("transaction_date")} /> 
-                  <FormError error={errors.transactionDate} />
+                  <FormError error={errors.transaction_date} />
               </div>
               <div>
                   <Label className="mb-1">İşlem Tutarı</Label>
