@@ -34,6 +34,8 @@ const TransactionForm = () => {
 
 
     const onSubmit = async (data) => {
+        // console.log(data)
+        // return
         setSaving(true)
         setLastError()
         try {
@@ -65,7 +67,8 @@ const TransactionForm = () => {
               </div>
               <div>
                   <Label className="mb-1">Kategori</Label>
-                  <Select {...register("category")} disabled={type!='Expense'}>
+                  <Select {...register("category")} disabled={type != 'Expense'}>
+                      <option value="" >Kategori Seçiniz</option>
                       {categories.map(category => <option key={category.value} value={category.value}>{category.displayName}</option>)}
                   </Select>
                   <FormError error={errors.category} />
