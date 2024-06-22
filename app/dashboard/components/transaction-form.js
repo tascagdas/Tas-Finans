@@ -15,7 +15,11 @@ import FormError from "@/components/form-error"
 
 const TransactionForm = () => {
 
-    const { register, handleSubmit, watch, formState: { errors } } = useForm({
+    const { register,
+        handleSubmit,
+        watch,
+        setValue,
+        formState: { errors } } = useForm({
         mode: "onTouched",
         resolver: zodResolver(transactionSchema)
     });
@@ -25,6 +29,9 @@ const TransactionForm = () => {
     const [isSaving, setSaving] = useState(false)
 
     const [lastError, setLastError] = useState();
+
+    const type = watch('type')
+
 
     const onSubmit = async (data) => {
         setSaving(true)
@@ -45,14 +52,20 @@ const TransactionForm = () => {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
                   <Label className="mb-1">Tip</Label>
-                  <Select {...register("type")}>
+                  <Select {...register("type", {
+                      onChange: (e) => {
+                          if (e.target.value != 'Expense') {
+                            setValue('category','')
+                          }
+                      }
+                  })}>
                       {types.map(type => <option key={type.value} value={type.value}>{ type.displayName }</option>)}
                   </Select>
                   <FormError error={errors.type} />
               </div>
               <div>
                   <Label className="mb-1">Kategori</Label>
-                  <Select {...register("category")}>
+                  <Select {...register("category")} disabled={type!='Expense'}>
                       {categories.map(category => <option key={category.value} value={category.value}>{category.displayName}</option>)}
                   </Select>
                   <FormError error={errors.category} />
