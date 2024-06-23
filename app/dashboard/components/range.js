@@ -17,7 +17,7 @@ const Range = () => {
     }
   return (
       <Select defaultValue={range} onChange={handleChange}>
-          <option value="today">Bugün</option>
+          <option value="last24hours">Son 24 Saat</option>
           <option value="last7days">Son 7 Gün</option>
           <option value="last30days">Son 30 Gün</option>
           <option value="last12months">Son 12 Ay</option>
