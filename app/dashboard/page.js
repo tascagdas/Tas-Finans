@@ -8,13 +8,17 @@ import { PlusCircle } from "lucide-react"
 import { sizes, variants } from "@/lib/variants"
 import { ErrorBoundary } from "react-error-boundary"
 import { types } from "@/lib/consts"
+import Range from "./components/range"
 
 
 const Page = async () => {
   return (
     <>
-      <section className="mb-8">
+      <section className="mb-8 flex justify-between items-center">
         <h1 className="text-4xl font-semibold">Özet</h1>
+        <aside>
+          <Range/>
+        </aside>
       </section>
       <section className="mb-8 grid grid-cols-2 lg:grid-cols-4 gap-8">
         {types.map(type => <ErrorBoundary key={type.value} fallback={<div className="text-orange-300">{type.displayName } trend verisi alınamadı</div>}>
