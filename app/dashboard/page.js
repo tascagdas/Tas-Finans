@@ -11,7 +11,8 @@ import { types } from "@/lib/consts"
 import Range from "./components/range"
 
 
-const Page = async () => {
+const Page = async ({ searchParams }) => {
+  const range = searchParams?.range ?? 'last30days'
   return (
     <>
       <section className="mb-8 flex justify-between items-center">
@@ -23,7 +24,7 @@ const Page = async () => {
       <section className="mb-8 grid grid-cols-2 lg:grid-cols-4 gap-8">
         {types.map(type => <ErrorBoundary key={type.value} fallback={<div className="text-orange-300">{type.displayName } trend verisi alınamadı</div>}>
           <Suspense fallback={<TrendFallback />}>
-            <Trend type={type.value} displayName={type.displayName} />
+            <Trend type={type.value} displayName={type.displayName} range={range} />
           </Suspense>
         </ErrorBoundary> )}
       </section>
