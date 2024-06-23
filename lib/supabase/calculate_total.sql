@@ -1,10 +1,12 @@
 create or replace function calculate_total (
   range_arg varchar default 'last30days',
   type_arg varchar default null
-) returns numeric as $$
+) returns table(current_amount numeric, previous_amount numeric) as $$
 declare
   currentStart timestamp;
   currentEnd timestamp;
+  previousStart timestamp;
+  previousEnd timestamp;
 begin
 
 currentEnd := now();
@@ -16,14 +18,26 @@ when range_arg = 'last12months' then currentEnd - interval '12 months'
 else currentEnd - interval '30 days'
 end;
 
+previousEnd := currentStart - interval '1 second';
+previousStart := currentStart - (currentEnd - currentStart);
 
-return (
-  select SUM(amount)
+current_amount := (
+  select COALESCE(SUM(amount),0)
   from transactions
   where
     (type = type_arg or type_arg is null)
     and (transaction_date between currentStart and currentEnd)
   );
+
+  previous_amount := (
+  select COALESCE(SUM(amount),0)
+  from transactions
+  where
+    (type = type_arg or type_arg is null)
+    and (transaction_date between previousStart and previousEnd)
+  );
+
+return next;
 
 end;
 $$ language plpgsql
