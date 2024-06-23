@@ -38,7 +38,7 @@ const Page = async ({ searchParams }) => {
       </section>
 
       <Suspense fallback={<TransactionListFallback />}>
-        <TransactionList />
+        <TransactionList range={range} />
       </Suspense>
     </>
   )
