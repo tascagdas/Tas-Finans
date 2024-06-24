@@ -1,14 +1,25 @@
 'use client'
+import Button from '@/components/button'
 import Seperator from '@/components/seperator'
 import TransactionItem from '@/components/transaction-item'
 import TransactionSummaryItem from '@/components/transaction-summary-item'
+import { fetchTransactions } from '@/lib/actions'
 import { groupAndSumTransactionsByDate } from '@/lib/utils'
+import { useState } from 'react'
 
 
-const TransactionList = async ({ initialTransactions }) => {
+const TransactionList = async ({ range, initialTransactions }) => {
+  const [transactions, setTransactions] = useState(initialTransactions)
+  const [offset, setOffset] = useState(initialTransactions.length)
 
-  
-  const grouped = groupAndSumTransactionsByDate(initialTransactions)
+  const grouped = groupAndSumTransactionsByDate(transactions)
+
+
+  const handleClick = async (e) => {
+    const nextTransactions = await fetchTransactions(range, offset, 10)
+    setOffset(prevValue => prevValue + 10)
+    setTransactions(prevTransactions=>[...prevTransactions,...nextTransactions])
+  }
 
   return (
     <div className='space-y-8'>
@@ -25,6 +36,9 @@ const TransactionList = async ({ initialTransactions }) => {
           </div>
         )
       }
+      <div className='flex justify-center'>
+        <Button onClick={handleClick} variant='ghost'>Daha fazla</Button>
+      </div>
     </div>
   )
 }
