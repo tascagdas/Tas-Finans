@@ -16,15 +16,15 @@ async function Seed() {
     let transactions = []
 
     for (let index = 0; index < 10; index++) {
-        const transaction_date = faker.date.past();
+        const transaction_date = faker.date.recent({ days: 180 });
         let type, category = null;
 
         const typeBias = Math.random();
 
-        if (typeBias < 0.80) {
+        if (0 < typeBias < 0.50) {
             type = 'Expense'
             category = faker.helpers.arrayElement(categories)
-        } else if (typeBias < 0.90) {
+        } else if (0.50 < typeBias < 0.90) {
             type = 'Income'
         } else {
             type = faker.helpers.arrayElement(
@@ -53,7 +53,7 @@ async function Seed() {
             amount,
             type,
             category,
-            description: faker.lorem.sentence({ min: 3, max: 5 })
+            description: faker.lorem.sentence({ min: 2, max: 5 })
         })
     }
     const { error } = await supabase.from('transactions').insert(transactions)
