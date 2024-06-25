@@ -15,12 +15,14 @@ const Page = async ({ searchParams }) => {
   const range = searchParams?.range ?? 'last30days'
   return (
     <div className="space-y-8">
+
       <section className="flex justify-between items-center">
         <h1 className="text-4xl font-semibold">Özet</h1>
         <aside>
           <Range/>
         </aside>
       </section>
+
       <section className="grid grid-cols-2 lg:grid-cols-4 gap-8">
         {types.map(type => <ErrorBoundary key={type.value} fallback={<div className="text-orange-300">{type.displayName } trend verisi alınamadı</div>}>
           <Suspense fallback={<TrendFallback />}>
