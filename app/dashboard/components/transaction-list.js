@@ -9,7 +9,7 @@ import { LoaderCircle } from 'lucide-react'
 import { useState } from 'react'
 
 
-export default function TransactionList ({ range, initialTransactions }) {
+export default function TransactionList({ range, initialTransactions }) {
   const [transactions, setTransactions] = useState(initialTransactions)
   const [offset, setOffset] = useState(initialTransactions.length + 1)
   const [buttonHidden, setButtonHidden] = useState(initialTransactions.length === 0)
@@ -31,6 +31,10 @@ export default function TransactionList ({ range, initialTransactions }) {
 
   }
 
+  const handleRemoved = (id) => () => {
+    setTransactions(prev => [...prev].filter(t => t.id != id))
+  }
+
   return (
     <div className='space-y-8'>
       {
@@ -40,7 +44,7 @@ export default function TransactionList ({ range, initialTransactions }) {
             <Seperator />
             <section className='space-y-4'>
               {transactions.map(transaction => <div key={transaction.id}>
-                <TransactionItem {...transaction} />
+                <TransactionItem {...transaction} onRemoved={handleRemoved(transaction.id)} />
               </div>)}
             </section>
           </div>

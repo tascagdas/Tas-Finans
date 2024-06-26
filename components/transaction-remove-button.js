@@ -3,7 +3,7 @@ import Button from "./button";
 import { Loader, X } from "lucide-react";
 import { useState } from "react";
 
-function TransactionRemoveButton({ id }) {
+function TransactionRemoveButton({ id, onRemoved }) {
     const [loading, setLoading] = useState()
     const [confirmed, setConfirmed] = useState()
     const handleClick = async () => {
@@ -15,7 +15,7 @@ function TransactionRemoveButton({ id }) {
         try {
             setLoading(true)
             await deleteTransaction(id)
-            // Burada parent componente listenin degismesi icin bilgi gonderilmesi lazim
+            onRemoved()
         } finally {
             setLoading(false)
         }

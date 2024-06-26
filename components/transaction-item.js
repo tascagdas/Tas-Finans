@@ -4,7 +4,7 @@ import React from 'react'
 import TransactionRemoveButton from './transaction-remove-button'
 
 const TransactionItem = ({
-    id, type, category, description, amount
+    id, type, category, description, amount, onRemoved
 }) => {
 
 
@@ -44,7 +44,7 @@ const formattedAmount=useFormatCurrency(amount)
               </div>
               <div className='min-w-[70px] text-right'>{formattedAmount}</div>
               <div className='min-w-[90px] flex justify-end'>
-                  <TransactionRemoveButton id={id} />
+                  <TransactionRemoveButton id={id} onRemoved={onRemoved}/>
               </div>
           </div>
     </>
