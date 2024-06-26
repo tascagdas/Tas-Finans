@@ -10,10 +10,10 @@ import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useState } from "react"
 import { useRouter } from "next/navigation"
-import { createTransaction } from "@/lib/actions";
+import { createTransaction, updateTransaction } from "@/lib/actions";
 import FormError from "@/components/form-error"
 
-const TransactionForm = () => {
+const TransactionForm = ({initialData}) => {
 
     const { register,
         handleSubmit,
@@ -21,7 +21,10 @@ const TransactionForm = () => {
         setValue,
         formState: { errors } } = useForm({
         mode: "onTouched",
-        resolver: zodResolver(transactionSchema)
+            resolver: zodResolver(transactionSchema),
+            defaultValues: initialData ?? {
+            transaction_date: new Date().toISOString().split('T')[0]
+        }
     });
 
     const router = useRouter()
@@ -32,6 +35,7 @@ const TransactionForm = () => {
 
     const type = watch('type')
 
+    const isEditing = Boolean(initialData)
 
     const onSubmit = async (data) => {
         // console.log(data)
@@ -39,7 +43,11 @@ const TransactionForm = () => {
         setSaving(true)
         setLastError()
         try {
-            await createTransaction(data)
+            if (isEditing) {
+                await updateTransaction(initialData.id,data)
+            } else {
+                await createTransaction(data)
+            }
             router.push('/dashboard')
         } catch(error) {
             setLastError(error)
@@ -75,7 +83,7 @@ const TransactionForm = () => {
               </div>
               <div>
                   <Label className="mb-1">İşlem Tarihi</Label>
-                  <Input placeholder="YYYY-AA-GG" {...register("transaction_date")} /> 
+                  <Input placeholder="YYYY-AA-GG" {...register("transaction_date")} disabled={isEditing } /> 
                   <FormError error={errors.transaction_date} />
               </div>
               <div>

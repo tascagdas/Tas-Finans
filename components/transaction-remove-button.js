@@ -1,6 +1,6 @@
 import { deleteTransaction } from "@/lib/actions";
 import Button from "./button";
-import { Loader, X } from "lucide-react";
+import { Loader, Trash } from "lucide-react";
 import { useState } from "react";
 
 function TransactionRemoveButton({ id, onRemoved }) {
@@ -21,7 +21,7 @@ function TransactionRemoveButton({ id, onRemoved }) {
         }
     }
     return <Button size="xs" variant={!confirmed ? 'ghost' : 'danger'} aria-disabled={loading} onClick={handleClick}>
-        {!loading && <X className="h-4 w-4" />}
+        {!loading && <Trash className="h-4 w-4" />}
         {loading && <Loader className="h-4 w-4 animate-spin" />}
     </Button>
 }
