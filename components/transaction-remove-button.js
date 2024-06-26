@@ -9,6 +9,7 @@ function TransactionRemoveButton({ id }) {
     const handleClick = async () => {
         if (!confirmed) {
             setConfirmed(true)
+            setTimeout(() => setConfirmed(false), 5000);
             return
         }
         try {
