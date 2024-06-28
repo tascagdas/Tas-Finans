@@ -14,9 +14,7 @@ import { createClient } from "@/lib/supabase/server"
 
 const Page = async ({ searchParams }) => {
   const range = searchParams?.range ?? 'last30days'
-
-  const supabase = createClient()
-console.log(await supabase.auth.getUser())
+  
   return (
     <div className="space-y-8">
 

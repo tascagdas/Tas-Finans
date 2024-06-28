@@ -5,6 +5,7 @@ import { createClient } from '@/lib/supabase/server';
 import Button from './button';
 import { KeyRound, UserCircle } from 'lucide-react';
 import { sizes, variants } from '@/lib/variants';
+import SignOutButton from './sign-out-button';
 
 
 const PageHeader = async ({ className }) => {
@@ -20,6 +21,7 @@ const PageHeader = async ({ className }) => {
           <UserCircle/>
           <p>{user.email}</p> 
         </Button>}
+        {user && <SignOutButton/>}
         {!user && <Link href="/login" className={`${variants['ghost']} ${sizes["sm"]}`}>
         <KeyRound/>
         </Link>}
