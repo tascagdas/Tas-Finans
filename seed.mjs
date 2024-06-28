@@ -12,12 +12,43 @@ const supabase = createClient(
 
 const categories = ["Other", "House", "Transportation", "Health", "Food", "Education"]
 
+async function seedUsers() {
+    for (let index = 0; index < 5; index++) {
+        try {
+            const { data, error } = await supabase.auth.admin.createUser({
+                email: faker.internet.email(),
+                password: 'example-password',
+            })
+            if (error) {
+                throw new Error(error)
+            }
+            console.log("kullanici eklendi")
+        } catch (error) {
+            console.error("kullanici eklenirken hata ile karsilasildi.");
+        }
+    }
+}
+
 async function Seed() {
+    await seedUsers()
     let transactions = []
+
+
+    const { data: { users }, error: listUsersError } = await supabase.auth.admin.listUsers()
+
+
+    if (listUsersError) {
+        console.error(`kullanicilar listelenemiyor, islem durduruldu`);
+        return
+    }
+
+    const userIds = users?.map(user => user.id)
 
     for (let index = 0; index < 10; index++) {
         const transaction_date = faker.date.recent({ days: 180 });
         let type, category = null;
+
+        const user_id = faker.helpers.arrayElement(userIds)
 
         const typeBias = Math.random();
 
@@ -35,7 +66,7 @@ async function Seed() {
         let amount
         switch (type) {
             case 'Income':
-                amount=faker.number.int({min:500,max:20000})
+                amount = faker.number.int({ min: 500, max: 20000 })
                 break;
             case 'Expense':
                 amount = faker.number.int({ min: 10, max: 10000 })
@@ -53,14 +84,15 @@ async function Seed() {
             amount,
             type,
             category,
-            description: faker.lorem.sentence({ min: 2, max: 5 })
+            description: faker.lorem.sentence({ min: 2, max: 5 }),
+            user_id
         })
     }
     const { error } = await supabase.from('transactions').insert(transactions)
     if (error) {
         console.log('Hata oluştu')
     } else {
-        console.log('Data seedlendi')
+        console.log(`${transactions.length} islem eklendi.`)
     }
 }
 
