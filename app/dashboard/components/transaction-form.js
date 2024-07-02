@@ -50,7 +50,7 @@ const TransactionForm = ({initialData}) => {
             }
             router.push('/dashboard')
         } catch(error) {
-            setLastError(error)
+            setLastError(error?.message)
         }finally {
             setSaving(false)
         }
@@ -71,7 +71,7 @@ const TransactionForm = ({initialData}) => {
                   })}>
                       {types.map(type => <option key={type.value} value={type.value}>{ type.displayName }</option>)}
                   </Select>
-                  <FormError error={errors.type} />
+                  <FormError error={errors.type?.message} />
               </div>
               <div>
                   <Label className="mb-1">Kategori</Label>
@@ -79,22 +79,22 @@ const TransactionForm = ({initialData}) => {
                       <option value="" >Kategori Seçiniz</option>
                       {categories.map(category => <option key={category.value} value={category.value}>{category.displayName}</option>)}
                   </Select>
-                  <FormError error={errors.category} />
+                  <FormError error={errors.category?.message} />
               </div>
               <div>
                   <Label className="mb-1">İşlem Tarihi</Label>
                   <Input placeholder="YYYY-AA-GG" {...register("transaction_date")} disabled={isEditing } /> 
-                  <FormError error={errors.transaction_date} />
+                  <FormError error={errors.transaction_date?.message} />
               </div>
               <div>
                   <Label className="mb-1">İşlem Tutarı</Label>
                   <Input type="number" {...register("amount")} />
-                  <FormError error={errors.amount} />
+                  <FormError error={errors.amount?.message} />
               </div>
               <div className="col-span-1 md:col-span-2">
                   <Label className="mb-1">İşlem Açıklaması</Label>
                   <Input type="text" {...register("description")} />
-                  <FormError error={errors.description}/>
+                  <FormError error={errors.description?.message}/>
               </div>
           </div>
           <div className="flex justify-between items-center">
