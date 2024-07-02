@@ -13,7 +13,9 @@ import { createClient } from "@/lib/supabase/server"
 
 
 const Page = async ({ searchParams }) => {
-  const range = searchParams?.range ?? 'last30days'
+  const supabase = createClient();
+  const { data: { user: { user_metadata: settings } } } = await supabase.auth.getUser();
+  const range = searchParams?.range ?? settings?.defaultView ?? 'last30days'
   
   return (
     <div className="space-y-8">
@@ -21,7 +23,7 @@ const Page = async ({ searchParams }) => {
       <section className="flex justify-between items-center">
         <h1 className="text-4xl font-semibold">Özet</h1>
         <aside>
-          <Range/>
+          <Range defaultView={settings?.defaultView}/>
         </aside>
       </section>
 
