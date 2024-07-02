@@ -7,9 +7,9 @@ export default function SubmitButton(props) {
     const { pending } = useFormStatus()
     return (
         <>
-            <Button {...props} className={`${props.className} flex items-center justify-center space-x-2`}>
+            <Button {...props} className={`${props.className} flex items-center justify-center space-x-2`} disabled={pending}>
                 {pending && <Loader className="animate-spin w-4 h-4 mr-3" />}
-                {props.children}
+                <span>{props.children}</span>
             </Button>
         </>
     )

@@ -1,5 +1,5 @@
 'use client'
-import Select from '@/components/select'
+import DateRangeSelect from '@/components/date-range-select';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation'
 
 
@@ -16,12 +16,7 @@ const Range = () => {
         replace(`${pathName}?${params.toString()}`)
     }
   return (
-      <Select value={range} onChange={handleChange}>
-          <option value="last24hours">Son 24 Saat</option>
-          <option value="last7days">Son 7 Gün</option>
-          <option value="last30days">Son 30 Gün</option>
-          <option value="last12months">Son 12 Ay</option>
-    </Select>
+    <DateRangeSelect value={range} onChange={handleChange} />
   )
 }
 
