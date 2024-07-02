@@ -10,14 +10,15 @@ import { useFormState } from 'react-dom'
 
 const initialState = {
     message: '',
-    error: false
+    error: false,
+    errors:{}
 }
 
 export default function SettingsForm({ defaults }) {
     const [state, formAction] = useFormState(updateSettings, initialState)
     return <form className="space-y-4" action={formAction}>
         {state?.error && <ErrorAlert>{state?.message}</ErrorAlert>}
-        {!state?.error && state?.message.length > 0 && <SuccessAlert>{state?.message}</SuccessAlert>}
+        {!state?.error && state?.message?.length > 0 && <SuccessAlert>{state?.message}</SuccessAlert>}
         <Label htmlFor="fullName">Kullanıcı Adı:</Label>
         <Input type="text" name="fullName" ıd="fullName" placeholder="Ad Soyad" defaults={defaults?.fullName} />
         <Label htmlFor="defaultView">Varsayılan işlem süresi:</Label>
