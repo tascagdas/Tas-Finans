@@ -82,7 +82,7 @@ const TransactionForm = ({initialData}) => {
                   <FormError error={errors.category?.message} />
               </div>
               <div>
-                  <Label className="mb-1">İşlem Tarihi</Label>
+                  <Label className="mb-1">İşlem Tarihi <span className="opacity-25 text-sm">(YYYY-AA-GG)</span></Label>
                   <Input placeholder="YYYY-AA-GG" {...register("transaction_date")} disabled={isEditing } /> 
                   <FormError error={errors.transaction_date?.message} />
               </div>
